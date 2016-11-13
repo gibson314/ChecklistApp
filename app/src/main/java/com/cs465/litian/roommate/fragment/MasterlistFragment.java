@@ -109,7 +109,7 @@ public class MasterlistFragment extends SupportFragment {
         category.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                new category_popup(view.getContext()).showOnAnchor(view, RelativePopupWindow.VerticalPosition.ALIGN_TOP, RelativePopupWindow.HorizontalPosition.CENTER);
+                new category_popup(view.getContext()).showOnAnchor(view, RelativePopupWindow.VerticalPosition.ALIGN_BOTTOM, RelativePopupWindow.HorizontalPosition.CENTER);
             }
         });
 
