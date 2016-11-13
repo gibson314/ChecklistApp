@@ -11,6 +11,7 @@
         android:text = "MasterList"
         android:textSize="20sp"
         android:layout_gravity="center"
+        android:gravity="center"
     />
     <HorizontalScrollView
         android:layout_width="wrap_content"
@@ -21,30 +22,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
             >
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="100dp"
-            android:text = "Kitchen"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:id="@+id/bedroom"
-            android:layout_height="wrap_content"
-            android:layout_width="100dp"
             android:text = "Bedroom"
             android:textSize="20sp"
-            android:layout_gravity="center"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/kitchen"
+            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:text = "Kitchen"
+            android:textSize="20sp"
+            android:gravity="center"
             />
 
             <TextView
+                android:id="@+id/bathroom"
+
                 android:layout_height="wrap_content"
                 android:layout_width="100dp"
                 android:text = "Bathroom"
                 android:textSize="20sp"
-                android:layout_gravity="center"
+                android:gravity="center"
+
                 />
 
             <TextView
@@ -52,7 +58,8 @@
                 android:layout_width="100dp"
                 android:text = "Food"
                 android:textSize="20sp"
-                android:layout_gravity="center"
+                android:gravity="center"
+
                 />
 
             <TextView
@@ -60,13 +67,15 @@
                 android:layout_width="100dp"
                 android:text = "School"
                 android:textSize="20sp"
-                android:layout_gravity="center"
+
+                android:gravity="center"
                 />
         </LinearLayout>
 
     </HorizontalScrollView>
 
     <Button
+        android:id="@+id/ml_category"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_width="wrap_content"

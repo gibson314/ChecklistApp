@@ -11,11 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.cs465.litian.roommate.R;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -24,6 +29,9 @@ import com.cs465.litian.roommate.adapter.MasterListAdapter;
 import com.cs465.litian.roommate.model.item;
 
 import java.util.ArrayList;
+import java.util.List;
+import com.cs465.litian.roommate.popupwindow.category_popup;
+import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 /**
  * Created by litia on 11/10/2016.
@@ -32,7 +40,7 @@ import java.util.ArrayList;
 public class MasterlistFragment extends SupportFragment {
     private ListView itemlist;
     private ArrayList<item> itemlist_data = new ArrayList<>();
-    private TextView bedroom;
+    private TextView bathroom, kitchen;
     private MasterListAdapter masterlistadapter;
 
     public static MasterlistFragment newInstance() {
@@ -75,15 +83,37 @@ public class MasterlistFragment extends SupportFragment {
         //getActivity().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.masterlist_fragment, container, false);
         itemlist = (ListView) view.findViewById(R.id.item_list);
-        bedroom = (TextView) view.findViewById(R.id.bedroom);
-        bedroom.setOnClickListener(new View.OnClickListener() {
+        //=====================================================
+        bathroom = (TextView) view.findViewById(R.id.bathroom);
+        kitchen = (TextView) view.findViewById(R.id.kitchen);
+        bathroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData(1);
-                masterlistadapter.notifyDataSetChanged();
+                getData("Bathroom");
+
             }
             }
         );
+
+        kitchen.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            getData("Kitchen");
+                                            masterlistadapter.notifyDataSetChanged();
+                                        }
+                                    }
+        );
+        //======================================================
+
+        Button category = (Button) view.findViewById(R.id.ml_category);
+        category.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                new category_popup(view.getContext()).showOnAnchor(view, RelativePopupWindow.VerticalPosition.ALIGN_TOP, RelativePopupWindow.HorizontalPosition.CENTER);
+            }
+        });
+
+
 
 
 
@@ -103,13 +133,30 @@ public class MasterlistFragment extends SupportFragment {
     }
 
 
-    public void getData(int category){
+    public void getData(String category){
         itemlist_data.clear();
         Log.i("Data changed", "1");
-        itemlist_data.add(new item("Bathrobe", 1));
-        itemlist_data.add(new item("Body wash", 0));
-        itemlist_data.add(new item("Shampoo", 2));
-        itemlist_data.add(new item("Pen Pineapple", 2));
+//        itemlist_data.add(new item(category, 1));
+//        itemlist_data.add(new item("Body wash", 0));
+//        itemlist_data.add(new item("Shampoo", 2));
+//        itemlist_data.add(new item("Pen Pineapple", 2));
+        AVQuery<AVObject> query = new AVQuery<>("Item");
+        query.whereEqualTo("ItemCategory", category);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                //List<AVObject> ItemsInCategory = list;
+                if (list != null) {
+                    Log.i("XXX", list.size() + " ");
+                    for (int i = 0; i < list.size(); ++i) {
+                        itemlist_data.add(new item(list.get(i).getString("ItemName"), 0));
+                    }
+                    masterlistadapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+
     }
 
 
