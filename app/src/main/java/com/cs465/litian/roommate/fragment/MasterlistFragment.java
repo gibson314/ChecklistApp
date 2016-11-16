@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.util.Log;
@@ -34,6 +36,10 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.cs465.litian.roommate.R;
 
+import me.khrystal.library.widget.CircularViewMode;
+import me.khrystal.library.widget.ItemViewMode;
+import me.khrystal.library.widget.ScaleXViewMode;
+import me.khrystal.library.widget.ScaleYViewMode;
 import me.yokeyword.fragmentation.SupportFragment;
 
 import com.cs465.litian.roommate.Tools.GlobalParameterApplication;
@@ -51,6 +57,11 @@ import com.cs465.litian.roommate.popupwindow.add_popup;
 import com.cs465.litian.roommate.popupwindow.category_popup;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.tencent.qc.stat.common.User;
+import me.khrystal.library.widget.CircleRecyclerView;
+import com.bumptech.glide.Glide;
+import com.cs465.litian.roommate.adapter.CircleRecyclerAdapter;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by litia on 11/10/2016.
@@ -69,6 +80,14 @@ public class MasterlistFragment extends SupportFragment {
     private static String addToPos;
     private ArrayAdapter<String> add_adapter;
 
+    private CircleRecyclerView mCircleRecyclerView;
+    private ItemViewMode mItemViewMode;
+    private LinearLayoutManager mLayoutManager;
+
+
+
+    private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Computer"};
+
     public static MasterlistFragment newInstance() {
         Bundle args = new Bundle();
         MasterlistFragment fragment = new MasterlistFragment();
@@ -76,33 +95,37 @@ public class MasterlistFragment extends SupportFragment {
         return fragment;
     }
 
-
-    public Thread mThread = new Thread() {
+    public class thread extends Thread {
+        private String type;
+        public thread(String type) {
+            this.type = type;
+        }
         @Override
         public void run() {
             super.run();
-            initData();
-            Message msg = new Message();
-            msg.what = 123;
-            nHandler.sendMessage(msg);
+            getData(type);
+//            Message msg = new Message();
+//            msg.what = 123;
+//            nHandler.sendMessage(msg);
         }
-    };
+    }
 
-    public Handler nHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 123:
 
-                    masterlistadapter = new MasterListAdapter(
-                            getActivity(),
-                            itemlist_data);
-
-                    itemlist.setAdapter(masterlistadapter);
-            }
-        }
-    };
+//    public Handler nHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what) {
+//                case 123:
+//                    masterlistadapter.notifyDataSetChanged();
+//                    Log.i("Changed!!", itemlist_data.toString());
+////                    masterlistadapter = new MasterListAdapter(
+////                            getActivity(),
+////                            itemlist_data);
+////                    itemlist.setAdapter(masterlistadapter);
+//            }
+//        }
+//    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -155,6 +178,36 @@ public class MasterlistFragment extends SupportFragment {
 //                                        }
 //                                    }
 //        );
+
+        mCircleRecyclerView = (CircleRecyclerView) view.findViewById(R.id.circle_rv);
+        mItemViewMode = new ScaleXViewMode();
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        mCircleRecyclerView.setLayoutManager(mLayoutManager);
+        mCircleRecyclerView.setViewMode(mItemViewMode); // T implements ItemViewMode, after setLayoutManager(manager)
+        mCircleRecyclerView.setNeedCenterForce(true); // when SCROLL_STATE_IDLE == state, nearly center itemview scroll to center
+
+        mCircleRecyclerView.setNeedLoop(true); // default is true
+
+// if setCenterForce(true), can set this callback
+
+        mCircleRecyclerView.setOnCenterItemClickListener(new CircleRecyclerView.OnCenterItemClickListener() {
+            @Override
+            public void onCenterItemClick(View v) {
+                TextView t = (TextView) v.findViewById(R.id.item_text);
+                //Toast.makeText(getContext(), t.getText() + "Center Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        CircleRecyclerAdapter rAdapter = new CircleRecyclerAdapter(cg);
+        mCircleRecyclerView.setAdapter(rAdapter);
+//        rAdapter.setOnItemClickListener(new CircleRecyclerAdapter.MyOnItemClickListener(){
+//            @Override
+//            public void OnItemClickListener(View view, int i) {
+//                Toast.makeText(getContext(), i + " Clicked", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
         //======================================================
 
         ImageButton category_button = (ImageButton) view.findViewById(R.id.ml_category);
@@ -165,7 +218,7 @@ public class MasterlistFragment extends SupportFragment {
                 pp.showAsDropDown(view, -550, 0, Gravity.CENTER_HORIZONTAL);
 
                 WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-                lp.alpha = 0.3f; //0.0-1.0
+                lp.alpha = 0.6f; //0.0-1.0
                 getActivity().getWindow().setAttributes(lp);
             }
         });
@@ -233,25 +286,53 @@ public class MasterlistFragment extends SupportFragment {
         });
 
 
-        mThread.start();
-
+        //mThread.start();
+        masterlistadapter = new MasterListAdapter(getActivity(), itemlist_data);
+        itemlist.setAdapter(masterlistadapter);
 
         return view;
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        mCircleRecyclerView.setOnScrollListener(new CircleRecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollChanged(int l, int t, int oldl, int oldt) {
+                //Toast.makeText(getContext(), l + t + oldl + oldt + "Center Clicked", Toast.LENGTH_SHORT).show();
 
-    public void initData() {
+            }
+            @Override
+            public void onScrollStateChanged(int state) {
+                Log.i("ScrollStateChanged", state + "");
+                if (state == 2) {
+                    View v = mCircleRecyclerView.findViewAtCenter();
+                    final TextView t = (TextView) v.findViewById(R.id.item_text);
+                    Toast.makeText(getContext(), t.getText() + "Center Clicked", Toast.LENGTH_SHORT).show();
+                    thread gThread = new thread(t.getText().toString());
+                    gThread.start();
+                }
+            }
 
-        itemlist_data.add(new item("Bowls", 1));
-        itemlist_data.add(new item("Dish washer", 0));
-        itemlist_data.add(new item("Knives", 2));
+            @Override
+            public void onScrolled(int dx, int dy) {
+            }
+        });
+
     }
+
+//    public void initData() {
+//
+//        itemlist_data.add(new item("Bowls", 1));
+//        itemlist_data.add(new item("Dish washer", 0));
+//        itemlist_data.add(new item("Knives", 2));
+//    }
 
 
     public void getData(String category){
 
         itemlist_data.clear();
-        Log.i("Data changed", "1");
+        Log.i("Data changed", "1 " + category);
 //        itemlist_data.add(new item(category, 1));
 //        itemlist_data.add(new item("Body wash", 0));
 //        itemlist_data.add(new item("Shampoo", 2));
@@ -263,11 +344,13 @@ public class MasterlistFragment extends SupportFragment {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 //List<AVObject> ItemsInCategory = list;
+                Log.i("NULL", "!");
                 if (list != null) {
                     Log.i("XXX", list.size() + " ");
                     for (int i = 0; i < list.size(); ++i) {
                         itemlist_data.add(new item(list.get(i).getString("ItemName"), 0));
                     }
+                    Log.i("List", itemlist_data.toString());
                     masterlistadapter.notifyDataSetChanged();
                 }
             }
@@ -341,6 +424,8 @@ public class MasterlistFragment extends SupportFragment {
 
 
     }
+
+
 
     class SpinnerSelectedListener implements AdapterView.OnItemSelectedListener {
 

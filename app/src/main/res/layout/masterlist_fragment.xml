@@ -44,66 +44,75 @@
         <!--android:layout_gravity="center"-->
         <!--android:gravity="center"-->
     <!--/>-->
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center"
-            >
+    <!--<HorizontalScrollView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="2"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--&gt;-->
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="100dp"
-            android:text = "Bedroom"
-            android:textSize="20sp"
-            android:gravity="center"
-            />
-        <TextView
-            android:id="@+id/kitchen"
-            android:layout_height="wrap_content"
-            android:layout_width="100dp"
-            android:text = "Kitchen"
-            android:textSize="20sp"
-            android:gravity="center"
-            />
+        <!--<TextView-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:text = "Bedroom"-->
+            <!--android:textSize="20sp"-->
+            <!--android:gravity="center"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/kitchen"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:text = "Kitchen"-->
+            <!--android:textSize="20sp"-->
+            <!--android:gravity="center"-->
+            <!--/>-->
 
-            <TextView
-                android:id="@+id/bathroom"
+            <!--<TextView-->
+                <!--android:id="@+id/bathroom"-->
 
-                android:layout_height="wrap_content"
-                android:layout_width="100dp"
-                android:text = "Bathroom"
-                android:textSize="20sp"
-                android:gravity="center"
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:text = "Bathroom"-->
+                <!--android:textSize="20sp"-->
+                <!--android:gravity="center"-->
 
-                />
+                <!--/>-->
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="100dp"
-                android:text = "Food"
-                android:textSize="20sp"
-                android:gravity="center"
+            <!--<TextView-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:text = "Food"-->
+                <!--android:textSize="20sp"-->
+                <!--android:gravity="center"-->
 
-                />
+                <!--/>-->
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="100dp"
-                android:text = "School"
-                android:textSize="20sp"
+            <!--<TextView-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:text = "School"-->
+                <!--android:textSize="20sp"-->
 
-                android:gravity="center"
-                />
-        </LinearLayout>
+                <!--android:gravity="center"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
 
-    </HorizontalScrollView>
+    <!--</HorizontalScrollView>-->
+<me.khrystal.library.widget.CircleRecyclerView
+    android:id="@+id/circle_rv"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginTop="10dp">
+
+</me.khrystal.library.widget.CircleRecyclerView>
+
+
 
     <ImageButton
         android:id="@+id/ml_category"

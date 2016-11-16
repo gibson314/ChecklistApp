@@ -23,15 +23,15 @@ public class GlobalParameterApplication extends Application{
     private static int LoginStatus;
 
     public GlobalParameterApplication() {
-        category_list.add(new category("Bedroom", R.drawable.calendar));
-        category_list.add(new category("Kitchen", R.drawable.calendar));
-        category_list.add(new category("School", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
-        category_list.add(new category("Bathroom", R.drawable.calendar));
+        category_list.add(new category("All Item", R.drawable.car));
+        category_list.add(new category("Bedroom", R.drawable.car));
+        category_list.add(new category("Kitchen", R.drawable.car));
+        category_list.add(new category("School", R.drawable.car));
+        category_list.add(new category("Bathroom", R.drawable.car));
+        category_list.add(new category("Laundry", R.drawable.car));
+        category_list.add(new category("Clothing", R.drawable.car));
+        category_list.add(new category("Food", R.drawable.calendar));
+        category_list.add(new category("Computer", R.drawable.calendar));
         LoginStatus = 0;
     }
 
