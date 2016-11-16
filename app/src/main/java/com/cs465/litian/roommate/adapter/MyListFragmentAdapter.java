@@ -6,6 +6,8 @@ package com.cs465.litian.roommate.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.cs465.litian.roommate.fragment.ChoresFragment;
 import com.cs465.litian.roommate.fragment.PublicListFragment;
 import com.cs465.litian.roommate.fragment.PrivateListFragment;
 import com.cs465.litian.roommate.fragment.MylistFragment;
@@ -27,7 +29,7 @@ public class MyListFragmentAdapter extends FragmentPagerAdapter {
             return PrivateListFragment.newInstance();
         }
         else {
-            return PrivateListFragment.newInstance();
+            return ChoresFragment.newInstance();
         }
     }
 

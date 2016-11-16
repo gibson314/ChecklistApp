@@ -4,4 +4,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_hello_world">HelloWorld</string>
+
+    <string-array name="addTo">
+        <item>Private List</item>
+        <item>Public List</item>
+    </string-array>
+    <string-array name="dorms_array">
+        <item>608E University Ave</item>
+        <item>512S 3rd St</item>
+    </string-array>
+
+
 </resources>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/checkbox"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:text="My Dorms"
+            android:textSize="18dp"
+            android:background="@color/green"
+            android:gravity="left"/>
+        <Spinner
+            android:id="@+id/myDormSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/dorms_array"
+            >
+
+        </Spinner>
+    </LinearLayout>
+
+
+</LinearLayout>
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/empty_cart_view"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="#ffefebe7" >
+
+<RelativeLayout
+    android:id="@+id/top_relative"
+    android:layout_width="fill_parent"
+    android:background="@color/green"
+    android:layout_height="50.0dip" >
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10.0dip"
+        android:text="My Profile"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20dp" />
+</RelativeLayout>
+
+<ScrollView
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_below="@+id/top_relative"
+android:fadingEdge="none" >
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="60.0dip"
+    android:paddingLeft="10.0dip"
+    android:paddingRight="10.0dip"
+    android:paddingTop="10.0dip" >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/checkbox"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TableLayout
+            android:id="@+id/MorePageTableLayout_Favorite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0"
+            android:stretchColumns="0" >
+
+            <RelativeLayout
+                android:id="@+id/more_page_row0"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="2.0dip"
+                android:layout_marginRight="2.0dip"
+                android:background="@color/white"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="8.0dip" >
+
+            <TextView
+                android:id="@+id/myDorm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/dorm"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="MY DORMS"
+                android:textColor="#ff333333"
+                android:textSize="18dp"
+                />
+                <Spinner
+                    android:id="@+id/myDormSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/myDorm"
+                    android:layout_marginLeft="68dp"
+
+                    android:entries="@array/dorms_array"
+                    >
+
+                </Spinner>
+
+
+        </RelativeLayout>
+    </TableLayout>
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <TableLayout
+        android:id="@+id/MorePageTableLayout_Follow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="1.0dip"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:shrinkColumns="0"
+        android:stretchColumns="0" >
+
+        <TableRow
+            android:id="@+id/more_page_row1"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawableLeft="@drawable/settings"
+                android:background="@color/white"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="Settings"
+                android:textColor="#ff333333"
+                android:textSize="18dp" />
+
+
+
+        </TableRow>
+        <Button
+            android:id="@+id/logout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="#FF776f"
+            android:text="Log out"/>
+    </TableLayout>
+
+</LinearLayout>
+
+
+</LinearLayout>
+    </ScrollView>
+    </RelativeLayout>

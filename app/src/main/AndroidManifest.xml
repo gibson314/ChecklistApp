@@ -3,6 +3,7 @@
     package="com.cs465.litian.roommate">
 
     <application
+        android:name=".Tools.GlobalParameterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,6 +36,10 @@
             android:name=".HelloWorld"
             android:label="@string/title_activity_hello_world"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.UserLogin"
+            android:label="UserLogin"></activity>
+        <activity android:name=".activity.UserProfile"
+            android:label="UserProfile"></activity>
     </application>
 
 </manifest>
