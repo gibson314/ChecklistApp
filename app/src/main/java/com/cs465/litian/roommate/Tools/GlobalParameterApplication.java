@@ -6,6 +6,7 @@ package com.cs465.litian.roommate.Tools;
 
 import android.app.Application;
 import android.provider.Settings;
+import android.widget.EditText;
 
 import com.cs465.litian.roommate.R;
 
@@ -19,6 +20,7 @@ public class GlobalParameterApplication extends Application{
     private static String publicgroup;
 
     private static ArrayList<category> category_list = new ArrayList<>();
+    private static ArrayList<EditText> people_List = new ArrayList<>();
 
     private static int LoginStatus;
 
@@ -35,6 +37,10 @@ public class GlobalParameterApplication extends Application{
         LoginStatus = 0;
     }
 
+    public static void setPeopleList(EditText name)
+    {
+        people_List.add(name);
+    }
     public static String getPublicgroup () {
         return publicgroup;
     }
