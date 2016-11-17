@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,11 @@ public class MylistFragment extends SupportFragment {
     }
 
     @Override
+    protected void onNewBundle(Bundle newBundle){
+        // 在此可以接收到SINGLETASK/SINGTOP启动模式传递的数据  类似Activity中的onNewIntent()
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mylist_fragment, container, false);
 //        View tex = view.findViewById(R.id.helloworld);
@@ -68,6 +74,23 @@ public class MylistFragment extends SupportFragment {
 
         mViewPager.setAdapter(new MyListFragmentAdapter(getChildFragmentManager()));
         mTab.setupWithViewPager(mViewPager);
+
+//        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                //Log.i("scroll", position + "");
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//                Log.i("scroll", state + "");
+//            }
+//        });
 
         ImageView user_btn = (ImageView) view.findViewById(R.id.user_2);
         user_btn.setOnClickListener(new View.OnClickListener() {

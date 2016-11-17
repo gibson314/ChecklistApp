@@ -7,10 +7,12 @@ package com.cs465.litian.roommate.model;
 public class item {
     private String name;
     private int status;
+    private String category;
 
-    public item(String name, int status){
+    public item(String name, String category, int status){
         this.name = name;
         this.status = status;
+        this.category = category;
     }
     public String getName(){
         return name;
@@ -18,4 +20,6 @@ public class item {
     public int getStatus() {
         return status;
     }
+    public String getCategory() {return category;}
+
 }

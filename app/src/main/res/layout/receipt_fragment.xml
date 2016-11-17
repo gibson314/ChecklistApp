@@ -9,46 +9,91 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-        app:titleTextAppearance="@style/Toolbar_TextAppearance_White">
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="512S 3rd St"
-                android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/rec_toolbar_title"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@android:color/white"/>
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar_TextAppearance_White">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="512S 3rd St"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/rec_toolbar_title"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/white"/>
 
-            <ImageView
-                android:id="@+id/user_3"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:paddingRight="10dp"
-                android:src="@drawable/user" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/user_3"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/user" />
+            </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="2">
 
-<TextView
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:text = "Receipt"
+        <ImageButton
+            android:layout_row="0"
+            android:layout_column="0"
+            android:id="@+id/receipt1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/receipt"/>
+
+        <ImageButton
+            android:layout_row="0"
+            android:layout_column="1"
+            android:id="@+id/receipt2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/receipt"
+            />
+        <ImageButton
+            android:id="@+id/addReceipt"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/add"/>
+
+    </GridLayout>
+
+    <!--
+    android:layout_width="120dp"
+    android:layout_height="150dp"
+    android:layout_marginTop="30dp"
     android:layout_gravity="center"
-    />
+    android:text="Add"
+    android:textSize="20dp"
+    android:textStyle="bold"120dp
+    android:textColor="@color/grey"
+    android:background="@color/white"
+    android:drawableEnd="@drawable/add_2"
+    -->
+
 </LinearLayout>

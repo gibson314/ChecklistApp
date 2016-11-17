@@ -1,7 +1,12 @@
 package com.cs465.litian.roommate.fragment;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -47,6 +52,7 @@ import com.cs465.litian.roommate.activity.UserLogin;
 import com.cs465.litian.roommate.activity.UserProfile;
 import com.cs465.litian.roommate.adapter.CategoryGridAdapter;
 import com.cs465.litian.roommate.adapter.MasterListAdapter;
+import com.cs465.litian.roommate.database.ItemDBHelper;
 import com.cs465.litian.roommate.model.category;
 import com.cs465.litian.roommate.model.item;
 
@@ -77,14 +83,16 @@ public class MasterlistFragment extends SupportFragment {
     private View add_pop;
     private add_popup add_pop_window;
     private String current_item_added;
-    private static String addToPos;
+    private String current_item_category;
+    private item current_item;
+    private static String addToPos = "Private List";
     private ArrayAdapter<String> add_adapter;
 
     private CircleRecyclerView mCircleRecyclerView;
     private ItemViewMode mItemViewMode;
     private LinearLayoutManager mLayoutManager;
 
-
+    private SQLiteDatabase db;
 
     private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Computer"};
 
@@ -110,6 +118,37 @@ public class MasterlistFragment extends SupportFragment {
         }
     }
 
+    public class add_private_thread extends Thread {
+        private item cur_item;
+
+        public add_private_thread(item cur) {
+            this.cur_item = cur;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            ItemDBHelper dbHelper = new ItemDBHelper(getActivity().getApplicationContext());
+            db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("itemName", current_item.getName());
+            values.put("itemCategory", current_item.getCategory());
+            //values.put("itemStatus", 1);
+            db.insert(
+                    "LIST",
+                    null,
+                    values);
+            Log.i("Insert", "!");
+
+//            Fragment frg = null;
+//            frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+//            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.detach(frg);
+//            ft.attach(frg);
+//            ft.commit();
+
+        }
+    }
 
 //    public Handler nHandler = new Handler() {
 //        @Override
@@ -262,6 +301,7 @@ public class MasterlistFragment extends SupportFragment {
                     case 0:
                         addToPos="Private List";
                         Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+
                         break;
                     case 1:
                         addToPos="Public List";
@@ -280,7 +320,18 @@ public class MasterlistFragment extends SupportFragment {
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Toast.makeText(getActivity().getApplicationContext(), "Add " + current_item_added + " to " + addToPos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Add " + current_item.getName() + " to " + addToPos, Toast.LENGTH_SHORT).show();
+                if (addToPos.equals("Private List")) {
+                    add_private_thread aThread = new add_private_thread(current_item);
+                    Log.i("??", "!!");
+                    aThread.run();
+                }
+                else if (addToPos.equals("Public List")) {
+                    AVObject todoFolder = new AVObject("PublicList");//
+                    todoFolder.put("itemCategory", current_item.getCategory());//
+                    todoFolder.put("itemName", current_item.getName());//
+                    todoFolder.saveInBackground();// 保存到服务端
+                }
                 add_pop_window.dismiss();
             }
         });
@@ -348,7 +399,7 @@ public class MasterlistFragment extends SupportFragment {
                 if (list != null) {
                     Log.i("XXX", list.size() + " ");
                     for (int i = 0; i < list.size(); ++i) {
-                        itemlist_data.add(new item(list.get(i).getString("ItemName"), 0));
+                        itemlist_data.add(new item(list.get(i).getString("ItemName"), list.get(i).getString("ItemCategory"), 0));
                     }
                     Log.i("List", itemlist_data.toString());
                     masterlistadapter.notifyDataSetChanged();
@@ -408,8 +459,9 @@ public class MasterlistFragment extends SupportFragment {
                 public void onClick(View view) {
                     Toast.makeText(getActivity().getApplicationContext(), "Add to List Pop up", Toast.LENGTH_SHORT).show();
                     add_pop_window.showAtLocation(view, Gravity.BOTTOM, 0, 220);
-                    current_item_added = entity.getName();
-
+                    //current_item_added = entity.getName();
+                    //current_item_category = entity.getCategory();
+                    current_item = entity;
                 }
             });
 

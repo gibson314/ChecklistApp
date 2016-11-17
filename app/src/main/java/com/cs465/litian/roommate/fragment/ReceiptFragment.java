@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.cs465.litian.roommate.R;
 import com.cs465.litian.roommate.Tools.GlobalParameterApplication;
-import com.cs465.litian.roommate.activity.UserLogin;
+import com.cs465.litian.roommate.activity.AddReceipt;
+import com.cs465.litian.roommate.activity.ReceiptDetail;
+import com.cs465.litian.roommate.activity.ReceiptDetail;
 import com.cs465.litian.roommate.activity.UserProfile;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -34,7 +38,7 @@ public class ReceiptFragment extends SupportFragment{
             @Override
             public void onClick(View view){
                 if (GlobalParameterApplication.getLoginStatus() == 0) {
-                    Intent intent = new Intent(getActivity(), UserLogin.class);
+                    Intent intent = new Intent(getActivity(), ReceiptDetail.class);
                     startActivity(intent);
                 }
                 else if (GlobalParameterApplication.getLoginStatus() == 1) {
@@ -43,6 +47,41 @@ public class ReceiptFragment extends SupportFragment{
                 }
             }
         });
+        ImageButton add_receipt_btn = (ImageButton) view.findViewById(R.id.addReceipt);
+        add_receipt_btn.setOnClickListener(new View.OnClickListener(){
+                                               @Override
+                                               public void onClick(View v) {
+                                                   GlobalParameterApplication.setLoginStatus(0);
+                                                   Intent intent = new Intent(getActivity(), AddReceipt.class);
+                                                   startActivity(intent);
+                                               }
+                                           }
+
+        );
+
+        ImageButton receipt1_detail_btn = (ImageButton) view.findViewById(R.id.receipt1);
+        receipt1_detail_btn.setOnClickListener(new View.OnClickListener(){
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       GlobalParameterApplication.setLoginStatus(0);
+                                                       Intent intent = new Intent(getActivity(), ReceiptDetail.class);
+                                                       startActivity(intent);
+                                                   }
+                                               }
+
+        );
+
+        ImageButton receipt2_detail_btn = (ImageButton) view.findViewById(R.id.receipt2);
+        receipt2_detail_btn.setOnClickListener(new View.OnClickListener(){
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       GlobalParameterApplication.setLoginStatus(0);
+                                                       Intent intent = new Intent(getActivity(), ReceiptDetail.class);
+                                                       startActivity(intent);
+                                                   }
+                                               }
+
+        );
 
         return view;
     }

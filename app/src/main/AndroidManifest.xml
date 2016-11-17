@@ -40,6 +40,9 @@
             android:label="UserLogin"></activity>
         <activity android:name=".activity.UserProfile"
             android:label="UserProfile"></activity>
+        <activity android:name=".activity.ReceiptDetail">
+        </activity>
+        <activity android:name=".activity.AddReceipt"></activity>
     </application>
 
 </manifest>
