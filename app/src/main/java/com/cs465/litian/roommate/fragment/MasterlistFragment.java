@@ -359,7 +359,7 @@ public class MasterlistFragment extends SupportFragment {
                 if (state == 2) {
                     View v = mCircleRecyclerView.findViewAtCenter();
                     final TextView t = (TextView) v.findViewById(R.id.item_text);
-                    Toast.makeText(getContext(), t.getText() + "Center Clicked", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), t.getText() + "Center Clicked", Toast.LENGTH_SHORT).show();
                     thread gThread = new thread(t.getText().toString());
                     gThread.start();
                 }

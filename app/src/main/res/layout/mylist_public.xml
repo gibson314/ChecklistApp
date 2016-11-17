@@ -13,7 +13,9 @@
     android:paddingTop="0dp"
     tools:context="com.cs465.litian.roommate.MainActivity">
 
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <ExpandableListView
         android:id="@+id/public_list"
         android:layout_width="match_parent"
@@ -28,4 +30,5 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/refresh" />
+</RelativeLayout>
 </LinearLayout>

@@ -192,7 +192,7 @@ public class PublicListFragment extends SupportFragment  {
 
     private void deleteItem(String itemName) {
         Log.i("!!", "delete from PublicList where itemName='"+ itemName +"'");
-        AVQuery.doCloudQueryInBackground("delete from PublicList where itemName='"+ itemName +"'", new CloudQueryCallback<AVCloudQueryResult>() {
+        AVQuery.doCloudQueryInBackground("delete from PublicList where objectId='582d526391e79b0066b6634d'", new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 Log.i("Delete Done", "!");
