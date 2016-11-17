@@ -15,9 +15,11 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.FindCallback;
 import com.cs465.litian.roommate.R;
 import com.cs465.litian.roommate.adapter.ExpandableListAdapter;
@@ -189,12 +191,13 @@ public class PublicListFragment extends SupportFragment  {
     }
 
     private void deleteItem(String itemName) {
-        ItemDBHelper mDbHelper = new ItemDBHelper(getActivity().getApplicationContext());
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete("LIST",
-                "itemName=?",
-                new String[]{itemName}
-        );
+        Log.i("!!", "delete from PublicList where itemName='"+ itemName +"'");
+        AVQuery.doCloudQueryInBackground("delete from PublicList where itemName='"+ itemName +"'", new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                Log.i("Delete Done", "!");
+            }
+        });
 
     }
 
