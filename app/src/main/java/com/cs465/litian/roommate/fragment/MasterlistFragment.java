@@ -153,6 +153,39 @@ public class MasterlistFragment extends SupportFragment {
         }
     }
 
+    public class add_chores_thread extends Thread {
+        private item cur_item;
+
+        public add_chores_thread(item cur) {
+            this.cur_item = cur;
+        }
+
+        @Override
+        public void run() { //add to DB all the categories
+            super.run();
+            ItemDBHelper dbHelper = new ItemDBHelper(getActivity().getApplicationContext());
+            db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("itemName", current_item.getName());
+            //values.put("itemCategory", current_item.getCategory());
+            values.put("personAssigned", addToPerson);
+            //values.put("itemStatus", 1);
+            db.insert(
+                    "CHORES",
+                    null,
+                    values);
+            Log.i("Insert", "!");
+
+//            Fragment frg = null;
+//            frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+//            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.detach(frg);
+//            ft.attach(frg);
+//            ft.commit();
+
+        }
+    }
+
 //    public Handler nHandler = new Handler() {
 //        @Override
 //        public void handleMessage(Message msg) {
@@ -381,6 +414,40 @@ public class MasterlistFragment extends SupportFragment {
                     todoFolder.saveInBackground();// 保存到服务端
                 }
                 add_pop_window.dismiss();
+            }
+        });
+
+        chores_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Toast.makeText(getActivity().getApplicationContext(), "Add " + current_item.getName() + " to " + addToPerson, Toast.LENGTH_SHORT).show();
+                if (addToPerson.equals("Kate")) {
+                    add_chores_thread cThread = new add_chores_thread(current_item);
+                    Log.i("??", "!!");
+                    cThread.run();
+                }
+                else if (addToPerson.equals("Caiwei")) {
+                    add_chores_thread cThread = new add_chores_thread(current_item);
+                    Log.i("??", "!!");
+                    cThread.run();
+                }
+                else if (addToPerson.equals("Litian")) {
+                    add_chores_thread cThread = new add_chores_thread(current_item);
+                    Log.i("??", "!!");
+                    cThread.run();
+                }
+                else if (addToPerson.equals("David")) {
+                    add_chores_thread cThread = new add_chores_thread(current_item);
+                    Log.i("??", "!!");
+                    cThread.run();
+                }
+                else
+                {
+                    add_chores_thread cThread = new add_chores_thread(current_item);
+                    Log.i("??", "!!");
+                    cThread.run();
+                }
+                chore_pop_window.dismiss();
             }
         });
 

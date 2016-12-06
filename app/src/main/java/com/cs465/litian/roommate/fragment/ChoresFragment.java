@@ -235,6 +235,13 @@ public class ChoresFragment extends SupportFragment {
 //                return true;
 //            }
 //        });
+        android.support.design.widget.FloatingActionButton refresh_btn = (android.support.design.widget.FloatingActionButton) view.findViewById(R.id.chores_refresh);
+        refresh_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                prepareListData();
+            }
+        });
 
 
         return view;
@@ -257,7 +264,7 @@ public class ChoresFragment extends SupportFragment {
                 db = dbHelper.getReadableDatabase();
                 //"itemStatus=?"new String[]{"1"}
                 Cursor c = db.query(
-                        "LIST",  // The table to query
+                        "CHORES",  // The table to query
                         null,
                         null,                                // The columns for the WHERE clause
                         null,                            // The values for the WHERE clause
@@ -268,7 +275,7 @@ public class ChoresFragment extends SupportFragment {
 
                 if (c != null) {
                     for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) { //iterate through the DB
-                        String cg = c.getString(c.getColumnIndex("itemCategory"));
+                        String cg = c.getString(c.getColumnIndex("personAssigned"));
                         String nm = c.getString(c.getColumnIndex("itemName"));
                         Log.i("Query!", cg+" "+nm);
                         if (!listDataHeader.contains(cg)){
@@ -295,7 +302,7 @@ public class ChoresFragment extends SupportFragment {
     private void deleteItem(String itemName) {
         ItemDBHelper mDbHelper = new ItemDBHelper(getActivity().getApplicationContext());
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete("LIST",
+        db.delete("CHORES",
                 "itemName=?",
                 new String[]{itemName}
         );

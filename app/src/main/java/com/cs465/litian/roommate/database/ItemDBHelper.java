@@ -30,9 +30,8 @@ public class ItemDBHelper extends SQLiteOpenHelper {
             ","+
             "itemName" + " TEXT"+
             ","+
-            "itemCategory" + " TEXT" +
-            ","+
-            "itemStatus" + "TEXT" +
+            "personAssigned" + " TEXT" +
+
             " )";
 
     public ItemDBHelper(Context context) {
@@ -44,6 +43,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         Log.i("SDF", SQL_CREATE_LIST);
         try{
             db.execSQL(SQL_CREATE_LIST);
+            db.execSQL(SQL_CREATE_CHORES);
         }catch (Throwable e){
             e.printStackTrace();
         }
