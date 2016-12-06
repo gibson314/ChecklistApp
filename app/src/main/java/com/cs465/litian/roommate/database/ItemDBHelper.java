@@ -25,6 +25,15 @@ public class ItemDBHelper extends SQLiteOpenHelper {
             " )";
 
 
+    private static final String SQL_CREATE_CHORES = "CREATE TABLE " + "CHORES" + " (" +
+            "itemID" + " INTEGER PRIMARY KEY AUTOINCREMENT" +
+            ","+
+            "itemName" + " TEXT"+
+            ","+
+            "itemCategory" + " TEXT" +
+            ","+
+            "itemStatus" + "TEXT" +
+            " )";
 
     public ItemDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

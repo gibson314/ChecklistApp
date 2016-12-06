@@ -81,11 +81,14 @@ public class MasterlistFragment extends SupportFragment {
     private category_popup pp;
     private Spinner sp;
     private View add_pop;
+    private View pop2;
     private add_popup add_pop_window;
+    private add_popup chore_pop_window;
     private String current_item_added;
     private String current_item_category;
     private item current_item;
     private static String addToPos = "Private List";
+    private static String addToPerson = "Kate";
     private ArrayAdapter<String> add_adapter;
 
     private CircleRecyclerView mCircleRecyclerView;
@@ -94,7 +97,7 @@ public class MasterlistFragment extends SupportFragment {
 
     private SQLiteDatabase db;
 
-    private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Computer"};
+    private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Chores"};
 
     public static MasterlistFragment newInstance() {
         Bundle args = new Bundle();
@@ -126,7 +129,7 @@ public class MasterlistFragment extends SupportFragment {
         }
 
         @Override
-        public void run() {
+        public void run() { //add to DB all the categories
             super.run();
             ItemDBHelper dbHelper = new ItemDBHelper(getActivity().getApplicationContext());
             db = dbHelper.getWritableDatabase();
@@ -167,7 +170,7 @@ public class MasterlistFragment extends SupportFragment {
 //    };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { //creates the layout view
         super.onCreateView(inflater, container, savedInstanceState);
         //getActivity().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.masterlist_fragment, container, false);
@@ -177,6 +180,10 @@ public class MasterlistFragment extends SupportFragment {
         add_pop = LayoutInflater.from(getActivity()).inflate(R.layout.add_popup_window, null);
         add_pop_window = new add_popup(view.getContext(), getActivity());
         add_pop_window.setContentView(add_pop);
+
+        pop2 = LayoutInflater.from(getActivity()).inflate(R.layout.chores_popup_window, null);
+        chore_pop_window = new add_popup(view.getContext(), getActivity());
+        chore_pop_window.setContentView(pop2);
 
 
 
@@ -247,6 +254,8 @@ public class MasterlistFragment extends SupportFragment {
 //            }
 //        });
 
+
+        //THIS IS FOR THE ICON CATEGORY SELECTION
         //======================================================
 
         ImageButton category_button = (ImageButton) view.findViewById(R.id.ml_category);
@@ -271,7 +280,7 @@ public class MasterlistFragment extends SupportFragment {
                                          @Override
                                          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                              category c = GlobalParameterApplication.getCategory_list().get(i);
-                                             getData(c.getName());
+                                             getData(c.getName());//we need to set the scrollable to "c" here.
                                              pp.dismiss();
                                          }
                                      }
@@ -290,7 +299,7 @@ public class MasterlistFragment extends SupportFragment {
         );
 
 
-        //==================================== Add item to list =====================================
+        //==================================== Add item to list in the popup window=====================================
         ImageView add_img = (ImageView) add_pop_window.getContentView().findViewById(R.id.pop_add_img);
         Spinner sp = (Spinner) add_pop_window.getContentView().findViewById(R.id.add_spinner);
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -310,12 +319,51 @@ public class MasterlistFragment extends SupportFragment {
                 }
             }
 
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
                 // sometimes you need nothing here
             }
         });
+
+        ImageView chores_img = (ImageView) chore_pop_window.getContentView().findViewById(R.id.chores_add_img);
+        Spinner sp2 = (Spinner) chore_pop_window.getContentView().findViewById(R.id.peopleSpinner);
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                          @Override
+                                          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                              switch (position) {
+                                                  case 0:
+                                                      addToPerson = "Kate";
+                                                      Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+
+                                                      break;
+                                                  case 1:
+                                                      addToPerson = "Caiwei";
+                                                      Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+                                                      break;
+                                                  case 2:
+                                                      addToPerson = "Litian";
+                                                      Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+                                                      break;
+                                                  case 3:
+                                                      addToPerson = "David";
+                                                      Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+                                                      break;
+                                                  case 4:
+                                                      addToPerson = "Devaraj";
+                                                      Toast.makeText(parent.getContext(), addToPos, Toast.LENGTH_SHORT).show();
+                                                      break;
+
+                                              }
+                                          }
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                                // sometimes you need nothing here
+                                            }
+                                      });
 
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,7 +506,15 @@ public class MasterlistFragment extends SupportFragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getActivity().getApplicationContext(), "Add to List Pop up", Toast.LENGTH_SHORT).show();
-                    add_pop_window.showAtLocation(view, Gravity.BOTTOM, 0, 220);
+                    String itemCat = entity.getCategory();
+                    Log.i("CAte", itemCat);
+                    if(itemCat.equals( "Chores"))
+                    {
+                        chore_pop_window.showAtLocation(view, Gravity.BOTTOM, 0, 300);
+                    }
+                    else {
+                        add_pop_window.showAtLocation(view, Gravity.BOTTOM, 0, 200);
+                    }
                     //current_item_added = entity.getName();
                     //current_item_category = entity.getCategory();
                     current_item = entity;

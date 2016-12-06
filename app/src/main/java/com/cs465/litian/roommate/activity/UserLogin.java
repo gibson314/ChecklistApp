@@ -22,7 +22,7 @@ public class UserLogin extends AppCompatActivity {
     {
         EditText name = (EditText)findViewById(R.id.EnterOnlineID);
         GlobalParameterApplication.setPeopleList(name);
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userlogin);
         button = (Button)findViewById(R.id.Signin);

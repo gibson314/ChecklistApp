@@ -9,6 +9,13 @@
         <item>Private List</item>
         <item>Public List</item>
     </string-array>
+    <string-array name="peopleList">
+        <item>Kate</item>
+        <item>Caiwei</item>
+        <item>Litian</item>
+        <item>David</item>
+        <item>Devaraj</item>
+    </string-array>
     <string-array name="dorms_array">
         <item>608E University Ave</item>
         <item>512S 3rd St</item>
