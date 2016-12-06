@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:gravity="center"
+    android:background="@color/mi">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to: "
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/peopleSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/peopleList"
+        android:spinnerMode="dialog">
+
+    </android.support.v7.widget.AppCompatSpinner>
+
+    <ImageView
+        android:id="@+id/chores_add_img"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/add"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>
