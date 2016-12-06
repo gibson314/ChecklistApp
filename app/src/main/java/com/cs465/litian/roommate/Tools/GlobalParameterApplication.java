@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.cs465.litian.roommate.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 import com.cs465.litian.roommate.model.category;
@@ -55,4 +56,8 @@ public class GlobalParameterApplication extends Application{
     public static void setLoginStatus(int s){
         LoginStatus = s;
     }
+
+    public static HashMap<String, Integer> _childtocolor = new HashMap<String, Integer>();
+
+
 }

@@ -22,6 +22,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.FindCallback;
 import com.cs465.litian.roommate.R;
+import com.cs465.litian.roommate.Tools.GlobalParameterApplication;
 import com.cs465.litian.roommate.adapter.ExpandableListAdapter;
 import com.cs465.litian.roommate.database.ItemDBHelper;
 import com.cs465.litian.roommate.model.item;
@@ -31,6 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Created by litian on 11/13/16.
@@ -47,7 +50,7 @@ public class PublicListFragment extends SupportFragment  {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-
+    HashMap<String, Integer> childtocolor;
 
 
 
@@ -65,7 +68,7 @@ public class PublicListFragment extends SupportFragment  {
             switch (msg.what) {
                 case 123:
 
-                    listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+                    listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, childtocolor);
 
                     // setting list adapter
                     expListView.setAdapter(listAdapter);
@@ -77,8 +80,15 @@ public class PublicListFragment extends SupportFragment  {
                             TextView tv = (TextView) view.findViewById(R.id.lblListItem);
                             String data = tv.getText().toString();
                             Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
-                            deleteItem(data);
-                            prepareListData();
+//                            deleteItem(data);
+//                            prepareListData();
+                            if (GlobalParameterApplication._childtocolor.get(data) == 0) {
+                                GlobalParameterApplication._childtocolor.put(data, 2);
+                                tv.setBackgroundResource(R.color.mi);
+
+
+                                Log.i("Change color", "!!");
+                            }
                             return true;
                         }
                     });
@@ -96,7 +106,7 @@ public class PublicListFragment extends SupportFragment  {
         listDataChild = new HashMap<String, List<String>>();
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.public_list);
-        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, childtocolor);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -108,8 +118,14 @@ public class PublicListFragment extends SupportFragment  {
                 TextView tv = (TextView) view.findViewById(R.id.lblListItem);
                 String data = tv.getText().toString();
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
-                deleteItem(data);
-                prepareListData();
+                // ==== Change color to Mi ======
+                if (GlobalParameterApplication._childtocolor.get(data) == 0) {
+                    GlobalParameterApplication._childtocolor.put(data, 2);
+                    tv.setBackgroundResource(R.color.mi);
+                    Log.i("Change color", "!!");
+                }
+
+                //prepareListData();
                 return true;
             }
         });
@@ -153,7 +169,7 @@ public class PublicListFragment extends SupportFragment  {
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
-
+        childtocolor = new HashMap<String, Integer>();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -165,8 +181,11 @@ public class PublicListFragment extends SupportFragment  {
                         for (int i = 0; i < list.size(); ++i) {
                             String cg = list.get(i).getString("itemCategory");
                             String nm = list.get(i).getString("itemName");
+                            String color = list.get(i).getString("Person");
+                            int col = Integer.parseInt(color);
                             Log.i("CG and NM", cg + " " + nm);
                             Log.i("Query!", cg + " " + nm);
+                            Log.i("Color!", col + "");
                             if (!listDataHeader.contains(cg)) {
                                 listDataHeader.add(cg);
                                 listDataChild.put(cg, new ArrayList<String>() {
@@ -175,6 +194,8 @@ public class PublicListFragment extends SupportFragment  {
                             List<String> ori = listDataChild.get(cg);
                             ori.add(nm);
                             listDataChild.put(cg, ori);
+
+                            GlobalParameterApplication._childtocolor.put(nm, col);
                         }
                         listAdapter.notifyDataSetChanged();
                     }
