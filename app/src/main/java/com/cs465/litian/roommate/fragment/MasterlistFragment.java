@@ -94,7 +94,7 @@ public class MasterlistFragment extends SupportFragment {
 
     private SQLiteDatabase db;
 
-    private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Computer"};
+    private String[] cg = {"Laundry", "Food", "Clothing", "Bedroom", "Bathroom", "Kitchen", "School", "Chores"};
 
     public static MasterlistFragment newInstance() {
         Bundle args = new Bundle();
@@ -330,6 +330,7 @@ public class MasterlistFragment extends SupportFragment {
                     AVObject todoFolder = new AVObject("PublicList");//
                     todoFolder.put("itemCategory", current_item.getCategory());//
                     todoFolder.put("itemName", current_item.getName());//
+                    todoFolder.put("Person", "0");
                     todoFolder.saveInBackground();// 保存到服务端
                 }
                 add_pop_window.dismiss();

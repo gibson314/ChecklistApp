@@ -3,7 +3,10 @@
         package com.cs465.litian.roommate.adapter;
 
         import android.content.Context;
+        import android.graphics.Color;
         import android.graphics.Typeface;
+        import android.provider.Settings;
+        import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -11,6 +14,7 @@
         import android.widget.TextView;
 
         import com.cs465.litian.roommate.R;
+        import com.cs465.litian.roommate.Tools.GlobalParameterApplication;
 
         import java.util.HashMap;
         import java.util.List;
@@ -21,12 +25,21 @@
             private List<String> _listDataHeader; // header titles
             // child data in format of header title, child title
             private HashMap<String, List<String>> _listDataChild;
-
+            private HashMap<String, Integer> _childtocolor;
             public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                          HashMap<String, List<String>> listChildData) {
                 this._context = context;
                 this._listDataHeader = listDataHeader;
                 this._listDataChild = listChildData;
+                this._childtocolor = null;
+            }
+            public ExpandableListAdapter(Context context, List<String> listDataHeader,
+                                         HashMap<String, List<String>> listChildData,
+                                         HashMap<String, Integer> ChildToColor) {
+                this._context = context;
+                this._listDataHeader = listDataHeader;
+                this._listDataChild = listChildData;
+                this._childtocolor = ChildToColor;
             }
 
             @Override
@@ -54,8 +67,32 @@
 
                 TextView txtListChild = (TextView) convertView
                         .findViewById(R.id.lblListItem);
-
                 txtListChild.setText(childText);
+                _childtocolor = GlobalParameterApplication._childtocolor;
+                if (_childtocolor != null) {
+                    Log.i("hello!", _childtocolor.toString());
+                    int color = _childtocolor.get(childText);
+                    switch (color) {
+                        case 0:
+                            txtListChild.setBackgroundResource(R.color.white);
+                            break;
+                        case 1:
+                            txtListChild.setBackgroundResource(R.color.avoscloud_blue);
+                            break;
+                        case 2:
+                            txtListChild.setBackgroundResource(R.color.mi);
+                            break;
+                        case 3:
+                            txtListChild.setBackgroundResource(R.color.grey);
+                            break;
+                        case 4:
+                            txtListChild.setBackgroundResource(R.color.tabnotselected);
+                            break;
+                        default:
+                            txtListChild.setBackgroundColor(0xFFFFFFFF);
+                            break;
+                    }
+                }
                 return convertView;
             }
 
